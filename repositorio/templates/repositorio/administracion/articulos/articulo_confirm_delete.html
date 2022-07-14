@@ -1,0 +1,12 @@
+{% extends 'repositorio/administracion/index.html' %} {% block admin_content %}
+
+<h1>Eliminar artículo</h1>
+
+<p>¿Seguro que quieres eliminar el artículo: {{ article }}?</p>
+
+<form action="" method="POST">
+	{% csrf_token %}
+	<input type="submit" value="Sí, estoy seguro." />
+</form>
+
+{% endblock %}

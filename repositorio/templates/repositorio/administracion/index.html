@@ -1,0 +1,59 @@
+{% extends 'repositorio/main.html' %} {% block content %}
+
+<div class="section-title-container">
+	<h2>Administración del sitio</h2>
+</div>
+
+<div class="row justify-content-center mt-2">
+	<div class="col-7 justify-content-center">{% block title %} {% endblock title %}</div>
+</div>
+
+{% block admin_content %}
+<div class="row justify-content-center mt-2">
+	<div class="col-6">
+		<table class="table table-striped">
+			<col style="width: 65%" />
+			<col style="width: 15%" />
+			<col style="width: 18%" />
+			<tbody>
+				<tr>
+					<th scope="row">Autores</th>
+					<td><span class="material-icons"> add </span>Añadir</td>
+					<td><span class="material-icons"> edit </span>Modificar</td>
+				</tr>
+				<tr>
+					<th scope="row">Publicaciones</th>
+					<td><span class="material-icons"> add </span>Añadir</td>
+					<td><span class="material-icons"> edit </span>Modificar</td>
+				</tr>
+				<tr>
+					<th scope="row">Ediciones</th>
+					<td><span class="material-icons"> add </span>Añadir</td>
+					<td><span class="material-icons"> edit </span>Modificar</td>
+				</tr>
+				<tr>
+					<th scope="row">Palabras Claves</th>
+					<td><span class="material-icons"> add </span>Añadir</td>
+					<td><span class="material-icons"> edit </span>Modificar</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<a href="{% url 'articulos_listar' %}">Artículos</a>
+					</th>
+					<td>
+						<a href="{% url 'articulos_crear' %}"
+							><span class="material-icons"> add </span>Añadir</a
+						>
+					</td>
+					<td>
+						<a href="{% url 'articulos_listar' %}"
+							><span class="material-icons"> edit </span
+							>Modificar</a
+						>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock admin_content %} {% endblock %}

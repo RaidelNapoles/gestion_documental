@@ -1,0 +1,98 @@
+{% extends 'repositorio/main.html' %} {% block content %}
+
+{% if home %}
+<div class="info-rev">
+	<h1 class="info-bold">
+		<span class="count-articles">{{ total }}</span>
+		artículos <span class="date-first">¡Desde {{ primero }}!</span>
+	</h1>
+</div>
+{% endif %}
+
+<div class="container article-list">
+	{% if query %}
+	<div class="row justify-content-lg-center">
+		<div class="col-12 col-lg-7">
+			<h6>Se ha(n) encontrado {{ total }} artículo(s) con la búsqueda</h6>
+		</div>
+	</div>
+	{% endif %} {% for articulo in articulos %}
+	<div class="row justify-content-lg-center">
+		<div class="col-12">
+			<div class="article-card">
+				<div>
+					<a href="{% url 'articulo' id=articulo.id %}">
+						<h2 class="title">{{ articulo.titulo }}</h2>
+					</a>
+				</div>
+				<div class="date-edit-info">
+					{{articulo.edicion.publicacion.nombre}} <br />
+					{{articulo.edicion.fecha_publicacion}}
+					<hr />
+				</div>
+				<!-- <p>
+					<b>Por:</b>
+					{% for autor in articulo.autores.all %}
+					<a href="{% url 'autor' id=autor.id page_number=1 %}">{{ autor }}</a
+					>{% if not forloop.last %}, {% endif %} {% endfor %}
+				</p>
+
+				<p>
+					{{ articulo.texto|truncatewords:60 }}
+					<a href="{% url 'articulo' id=articulo.id %}">Ver más</a>
+				</p> -->
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<div class="pagination">
+	<span class="step-links">
+		{% if articulos.has_previous %} {%if parameters %}
+		<a
+			href="{% url 'search_result' page_number=articulos.previous_page_number %}?{{ parameters.urlencode }}"
+			>&laquo; anterior</a
+		>
+		{% else %}
+		<a href="{% url 'home' page_number=articulos.previous_page_number %}"
+			>&laquo; anterior</a
+		>
+		{% endif %} {% endif %}
+
+		<span class="current">
+			Página {{ articulos.number }} de {{ articulos.paginator.num_pages}}.
+		</span>
+
+		{% if articulos.has_next %} {%if parameters %}
+		<a
+			href="{% url 'search_result' page_number=articulos.next_page_number %}?{{ parameters.urlencode }}"
+			>siguiente</a
+		>
+		{% else %}
+		<a href="{% url 'home' page_number=articulos.next_page_number %}"
+			>siguiente</a
+		>
+		{% endif %} {% endif %}
+	</span>
+</div>
+
+<!-- <nav aria-label="Search results pages">
+	<ul class="pagination justify-content-center">
+		<li class="page-item">
+			<a class="page-link" href="#" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+		<li class="page-item">
+			<a class="page-link" href="#" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</nav> -->
+
+{% endblock %}

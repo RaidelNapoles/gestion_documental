@@ -1,0 +1,5 @@
+//TODO dashboard(página que resuma algunas estadísticas del sitio)
+//TODO páginas personalizadas para la administración de las entidades (crear, listar, modificar y eliminar)
+//TODO descargar y asociar las librerías necesarias (Boostrap, DataTables, etc)
+//TODO empaquetar el proyecto en un contenedor de Docker
+//TODO permitir efectuar la búsqueda general y avanzada a la vez

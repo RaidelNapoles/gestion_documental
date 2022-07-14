@@ -1,0 +1,146 @@
+{% extends 'repositorio/main.html' %} {% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-6 front-img"></div>
+		<div class="col-6">
+			<form action="{% url 'search_result' page_number=1 %}" method="get">
+				<div class="row justify-content-center">
+					<div class="search col-11">
+						<input
+							type="text"
+							name="search"
+							class="searchTerm"
+							placeholder="Búsqueda general"
+							autofocus
+							autocomplete="off"
+							id="searchBar"
+						/>
+						<button type="submit" class="searchButton" id="searchButtonId">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-11 mb-2">
+						<div class="accordion mt-2" id="accordionExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingOne">
+									<button
+										class="accordion-button"
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#collapseOne"
+										aria-expanded="true"
+										aria-controls="collapseOne"
+									>
+										Búsqueda Avanzada
+									</button>
+								</h2>
+								<div
+									id="collapseOne"
+									class="accordion-collapse collapse show"
+									aria-labelledby="headingOne"
+									data-bs-parent="#accordionExample"
+								>
+									<div class="accordion-body">
+										<div class="card card-body p-2">
+											<div class="mb-2">
+												<label for="inputAuthor" class="form-label input-label">
+													Autor
+												</label>
+												<select
+													class="form-select border border-dark"
+													aria-label="Default select example"
+													name="inputAuthor"
+												>
+													<option selected></option>
+													{% for autor in autores %}
+													<option value="{{ autor }}">{{ autor }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="mb-2">
+												<label
+													for="inputPublication"
+													class="form-label input-label"
+												>
+													Publicación
+												</label>
+												<select
+													class="form-select border border-dark"
+													aria-label="Default select example"
+													name="inputPublication"
+												>
+													<option selected></option>
+													{% for publicacion in publicaciones %}
+													<option value="{{ publicacion }}">
+														{{ publicacion }}
+													</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="mb-2">
+												<label for="inputTitle" class="form-label input-label"
+													>Título</label
+												>
+												<input
+													type="text"
+													name="title"
+													class="form-control border border-dark"
+													id="inputTitle"
+												/>
+											</div>
+											<div class="mb-1">
+												<label for="inputKeyword" class="form-label input-label"
+													>Palabras Claves (separadas por coma)</label
+												>
+												<input
+													type="text"
+													name="keywords"
+													class="form-control border border-dark"
+													id="inputKeyword"
+												/>
+											</div>
+											<hr />
+											<div class="row mb-3">
+												<div class="col-12 col-md-6">
+													<label for="startDate" class="form-label input-label"
+														>Desde</label
+													>
+													<input
+														id="startDate"
+														class="form-control border border-dark"
+														type="date"
+														name="startDate"
+													/>
+												</div>
+												<div class="col-12 col-md-6">
+													<label for="stopDate" class="form-label input-label"
+														>Hasta</label
+													>
+													<input
+														id="stopDate"
+														class="form-control border border-dark"
+														type="date"
+														name="stopDate"
+													/>
+												</div>
+											</div>
+											<div class="btn-container">
+												<button type="submit" class="btn btn-primary col-12">
+													<i class="fa fa-search"></i> Buscar
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

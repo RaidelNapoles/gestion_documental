@@ -1,0 +1,13 @@
+{% extends 'repositorio/main.html' %} {% block content %}
+
+<div class="container article-list">
+  <div class="row justify-content-lg-center">
+    <div class="col-12 col-lg-7">
+      <div class="article-card">
+        {{ texto|safe }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

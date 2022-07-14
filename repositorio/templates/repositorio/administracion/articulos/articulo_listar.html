@@ -1,0 +1,49 @@
+{% extends 'repositorio/administracion/index.html' %} {% block title %}
+<h4>Seleccione un artículo para modificar</h4>
+{% endblock title %} {% block admin_content %}
+
+<div class="container main-container mt-2">
+	<div class="row justify-content-end">
+		<div class="button-container col-4">
+			<a class="btn btn-secondary" href="{% url 'articulos_crear' %}">
+				Añadir Artículo <span class="material-icons"> add </span>
+			</a>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="table-container col">
+			<table id="example" class="display">
+				<thead>
+					<tr>
+						<th>Título</th>
+						<th>Edición</th>
+						<th>Página</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for articulo in articulos %}
+					<tr>
+						<td>
+							<a
+								href="{% url 'articulos_actualizar' pk=articulo.id %}"
+							>
+								{{ articulo.titulo }}
+							</a>
+						</td>
+						<td>{{ articulo.edicion }}</td>
+						<td>{{ articulo.pagina }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>Título</th>
+						<th>Edición</th>
+						<th>Página</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

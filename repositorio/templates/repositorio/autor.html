@@ -1,0 +1,49 @@
+{% extends 'repositorio/main.html' %} {% block content %}
+
+<div class="container article-list">
+	<div class="row justify-content-lg-center">
+		<div class="col-12">
+			<h3>Artículos de {{ autor }} ({{ total }} en total)</h3>
+		</div>
+	</div>
+	{% for articulo in articulos %}
+	<div class="row justify-content-lg-center">
+		<div class="col-12">
+			<div class="article-card">
+				<a href="{% url 'articulo' id=articulo.id %}">
+					<h2 class="title">{{ articulo.titulo }}</h2>
+				</a>
+				<p>
+					<b>Publicado en:</b>
+          {{ articulo.edicion.publicacion }}
+				</p>
+				<p>
+					{{ articulo.texto|truncatewords:60 }}
+					<a href="{% url 'articulo' id=articulo.id %}">Ver más</a>
+				</p>
+			</div>
+		</div>
+		
+	</div>
+	{% endfor %}
+</div>
+
+<div class="pagination">
+	<span class="step-links">
+			{% if articulos.has_previous %}
+					<a href="{% url 'autor' id=autor.id page_number=articulos.previous_page_number %}">&laquo; anterior</a>
+					<!-- <a href="{% url 'home' page_number=articulos.previous_page_number %}">previous</a> -->
+			{% endif %}
+
+			<span class="current">
+					Página {{ articulos.number }} de {{ articulos.paginator.num_pages }}.
+			</span>
+
+			{% if articulos.has_next %}
+					<a href="{% url 'autor' id=autor.id page_number=articulos.next_page_number %}">siguiente</a>
+					<!-- <a href="{% url 'home' page_number=articulos.paginator.num_pages %}">last &raquo;</a> -->
+			{% endif %}
+	</span>
+</div>
+
+{% endblock %}

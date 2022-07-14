@@ -1,0 +1,105 @@
+from django.db import models
+from datetime import date
+from django.urls import reverse
+from tinymce.models import HTMLField
+
+# Create your models here.
+
+
+class Autor(models.Model):
+    nombre = models.CharField(max_length=100)
+    primer_apellido = models.CharField(max_length=100)
+    segundo_apellido = models.CharField(max_length=100, default='', blank=True)
+    picture = models.ImageField(
+        upload_to='author_pictures/', null=True, blank=True)
+    biography = models.TextField(default='', blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Autores'
+        ordering = ['primer_apellido']
+
+    def __str__(self) -> str:
+        return "{nombre} {primer_apellido} {segundo_apellido}".format(
+            nombre=self.nombre,
+            primer_apellido=self.primer_apellido,
+            segundo_apellido=self.segundo_apellido
+        )
+
+
+class Publicacion(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = 'Publicación'
+        verbose_name_plural = 'Publicaciones'
+
+    def __str__(self) -> str:
+        return self.nombre
+
+
+class Edicion(models.Model):
+    publicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    numero = models.PositiveIntegerField()
+    fecha_publicacion = models.DateField()
+    edicion_impresa = models.FileField(upload_to='newspapers/')
+
+    class Meta:
+        verbose_name = 'Edición'
+        verbose_name_plural = 'Ediciones'
+        ordering = ['numero']
+
+    def __str__(self) -> str:
+        return "{publicacion}, no. {numero}, {fecha_publicacion}".format(
+            publicacion=self.publicacion,
+            fecha_publicacion=self.fecha_publicacion,
+            numero=self.numero
+        )
+
+
+class PalabraClave(models.Model):
+    name = models.CharField(max_length=100, blank=True, default='')
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Articulo(models.Model):
+    titulo = models.CharField(max_length=200)
+    autores = models.ManyToManyField(Autor)
+    edicion = models.ForeignKey(Edicion, on_delete=models.CASCADE)
+    seccion = models.IntegerField(null=True, blank=True)
+    pagina = models.PositiveIntegerField()
+    palabras_claves = models.ManyToManyField(PalabraClave)
+    resumen = models.CharField(max_length=400, blank=True, default='')
+    texto = HTMLField()
+
+    class Meta:
+        verbose_name = 'Artículo'
+        verbose_name_plural = 'Artículos'
+        ordering = ['titulo']
+
+    def get_absolute_url(self):
+        return reverse('articulo', kwargs={'id': self.id})
+
+    def __str__(self) -> str:
+        return self.titulo
+
+    def get_year_of_pub(self):
+        self.edicion.fecha_publicacion
+
+
+class ArticlePicture(models.Model):
+    name = models.CharField(max_length=100)
+    picture = models.ImageField(
+        upload_to='article_pictures/', null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Texto(models.Model):
+    title = models.CharField(max_length=100, default='titulo')
+    texto = HTMLField()
+
+    def __str__(self) -> str:
+        return self.title

@@ -1,0 +1,59 @@
+{% extends 'repositorio/main.html' %} {% block content %}
+
+<div class="container">
+	<div class="row justify-content-lg-center">
+		<div class="col-12">
+			<div class="article">
+				<div>
+					<h1 class="title">{{ articulo.titulo }}</h1>
+          <br>
+					<p>
+						<b>Por:</b>
+						{% for autor in articulo.autores.all %}
+						<a href="{% url 'autor' id=autor.id page_number=1 %}">{{ autor }}</a
+						>{% if not forloop.last %}, {% endif %} {% endfor %}
+					</p>
+				</div>
+				<div class="date-edit-info">
+					<a href="{% url 'articulo_impreso' id=articulo.id %}">
+						{{ articulo.edicion.publicacion }}, 
+            número {{	articulo.edicion.numero }}, <br>
+           {{	articulo.edicion.fecha_publicacion|date:"j \d\e F \d\e Y" }}
+					</a>
+          <hr>
+				</div>
+				<div class="text">
+					<!-- {% for parrafo in parrafos %}
+					<p>{{ parrafo }}</p>
+					{% endfor %} -->
+          {{ texto|safe }}
+				</div>
+				<!-- <br /> -->
+				<div class="seccion_descargas">
+					<a href="{% url 'articulo_impreso' id=articulo.id %}">
+						{% load static %}
+						<img
+							src="{% static 'repositorio/img/pdf.png' %}"
+							alt="PDF icon"
+							style="width: 60px; height: 60px"
+						/>
+            <br>
+						Ver en edición impresa
+					</a>
+					<a href="{% url 'exportar_a_txt' id=articulo.id %}">
+						{% load static %}
+						<img
+							src="{% static 'repositorio/img/txt.png' %}"
+							alt="TXT icon"
+							style="width: 60px; height: 60px"
+						/>
+            <br>
+						Descargar como txt
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
