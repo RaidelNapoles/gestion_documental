@@ -3,3 +3,7 @@
 //TODO descargar y asociar las librerías necesarias (Boostrap, DataTables, etc)
 //TODO empaquetar el proyecto en un contenedor de Docker
 //TODO permitir efectuar la búsqueda general y avanzada a la vez
+
+Para el deployment:
+//TODO poner la variable DEBUG del archivo settings.py a False
+//TODO rellenar la variable ALLOWED_HOSTS del archivo settings.py 
