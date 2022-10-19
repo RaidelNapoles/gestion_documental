@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Autor, Publicacion, Edicion, Articulo, Texto, PalabraClave, ArticlePicture
+from .models import Autor, Publicacion, Edicion, Articulo, Texto, PalabraClave, ArticlePicture, Seccion
 
 # Register your models here.
 
@@ -17,9 +17,10 @@ class AutorAdmin(admin.ModelAdmin):
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Publicacion)
 admin.site.register(Edicion)
+admin.site.register(Seccion)
 admin.site.register(Articulo, ArticuloAdmin)
-admin.site.register(Texto)
+# admin.site.register(Texto)
 admin.site.register(PalabraClave)
-admin.site.register(ArticlePicture)
+# admin.site.register(ArticlePicture)
 
 admin.site.site_header = "Administración del sitio"

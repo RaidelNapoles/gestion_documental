@@ -31,7 +31,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG') == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["172.16.50.120", "publicaciones.inder.gob.cu"]
 
 
 # Application definition
@@ -138,6 +138,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = '/var/www/html/repositorio/static/'
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -162,7 +163,7 @@ TINYMCE_DEFAULT_CONFIG = {
             table code lists fullscreen  insertdatetime  nonbreaking
             contextmenu directionality searchreplace wordcount visualblocks
             visualchars code fullscreen autolink lists  charmap print  hr
-            anchor pagebreak
+            anchor pagebreak paste
             ''',
     'toolbar1': '''
             fullscreen preview bold italic underline | fontselect,
@@ -177,7 +178,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'contextmenu': 'formats | link image',
     'menubar': True,
     'statusbar': True,
-    'height': 500
+    'height': 500,
+    # 'paste_preprocess': "function(pl,o){o.content = o.content.replace(/(<([^>]+)>)/ig,' '); o.content = o.content.replace(/(- )/ig,'');}",
 }
 
 

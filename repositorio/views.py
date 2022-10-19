@@ -114,8 +114,12 @@ def search_result(request, page_number=1):
     keywords = request.GET.get("inputKeywords", "")
     startDate = request.GET.get("startDate", "")
     stopDate = request.GET.get("stopDate", "")
-    if general_search or autor or publicacion or titulo or keywords or startDate or stopDate:
+    conditions = [
+        general_search, autor, publicacion, titulo, keywords, startDate, stopDate
+    ]
+    if any(conditions):
         articles = Articulo.objects.all()
+        tester = ""
 
         if general_search:
             articles = articles.filter(
@@ -127,13 +131,17 @@ def search_result(request, page_number=1):
             ).distinct()
 
         if autor:
+            tester = autor.split(' ')
             nombre = autor.split(' ')[0]
             apellido1 = autor.split(' ')[1]
             apellido2 = autor.split(' ')[2]
             articles = articles.filter(
-                Q(autores__nombre=nombre),
-                Q(autores__primer_apellido=apellido1),
-                Q(autores__segundo_apellido=apellido2),
+                # autores__nombre=nombre,
+                # autores__primer_apellido=apellido1,
+                autores__segundo_apellido=apellido2
+                # Q(autores__nombre=nombre),
+                # Q(autores__primer_apellido=apellido1),
+                # Q(autores__segundo_apellido=apellido2),
             )
             # print(str(articles.query))
 
@@ -168,18 +176,20 @@ def search_result(request, page_number=1):
         }
         parameters = request.GET.copy()
         context = {
-            'articulos': articles_on_page,
+            'articulos': articles,
             'query': cleaned_query,
             'parameters': parameters,
             'total': articles.count(),
             'home': False,
+            'tester': tester
         }
         return render(request, 'repositorio/home.html', context)
 
-    messages.add_message(
-        request, messages.ERROR,
-        'Debes rellenar algún campo del formulario de búsqueda.'
-    )
+    elif not all(conditions):
+        messages.add_message(
+            request, messages.ERROR,
+            'Debes rellenar algún campo del formulario de búsqueda.'
+        )
 
     return render(request, 'repositorio/search.html', {'autores': autores, 'publicaciones': publicaciones})
 

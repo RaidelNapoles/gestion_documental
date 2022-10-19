@@ -18,7 +18,8 @@
           {{ articulo.edicion.publicacion }}
 				</p>
 				<p>
-					{{ articulo.texto|truncatewords:60 }}
+					<!-- {{ articulo.texto|truncatewords:60 }} -->
+          {{ articulo.resumen }}
 					<a href="{% url 'articulo' id=articulo.id %}">Ver más</a>
 				</p>
 			</div>

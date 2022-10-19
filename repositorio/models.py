@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from datetime import date
 from django.urls import reverse
@@ -32,6 +33,7 @@ class Publicacion(models.Model):
     class Meta:
         verbose_name = 'Publicación'
         verbose_name_plural = 'Publicaciones'
+        ordering = ['nombre']
 
     def __str__(self) -> str:
         return self.nombre
@@ -59,6 +61,22 @@ class Edicion(models.Model):
 class PalabraClave(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
 
+    class Meta:
+        verbose_name = 'Palabra Clave'
+        verbose_name_plural = 'Palabras Claves'
+        ordering = ['name']
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Seccion(models.Model):
+    name = models.CharField(max_length=100, blank=True, default='')
+
+    class Meta:
+        verbose_name = 'Sección'
+        verbose_name_plural = 'Secciones'
+
     def __str__(self) -> str:
         return self.name
 
@@ -67,7 +85,10 @@ class Articulo(models.Model):
     titulo = models.CharField(max_length=200)
     autores = models.ManyToManyField(Autor)
     edicion = models.ForeignKey(Edicion, on_delete=models.CASCADE)
-    seccion = models.IntegerField(null=True, blank=True)
+    seccion = models.ForeignKey(
+        Seccion, on_delete=models.SET_DEFAULT, null=True, blank=True,
+        default=""
+    )
     pagina = models.PositiveIntegerField()
     palabras_claves = models.ManyToManyField(PalabraClave)
     resumen = models.CharField(max_length=400, blank=True, default='')
