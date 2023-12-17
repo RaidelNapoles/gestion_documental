@@ -89,7 +89,7 @@ def texto(request):
 def exportar_articulo_a_txt(request, id):
     articulo = Articulo.objects.get(pk=id)
     titulo = articulo.titulo
-    texto = BeautifulSoup(articulo.texto, "lxml").text
+    texto = BeautifulSoup(articulo.texto, "html.parser").text
     response = HttpResponse(content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="{0}.txt"'.format(
         titulo)
