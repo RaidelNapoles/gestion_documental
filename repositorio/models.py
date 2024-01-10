@@ -19,7 +19,7 @@ class Autor(models.Model):
         ordering = ['primer_apellido']
 
     def __str__(self) -> str:
-        return "{nombre} {primer_apellido} {segundo_apellido}".format(
+        return "{primer_apellido} {segundo_apellido}, {nombre}".format(
             nombre=self.nombre,
             primer_apellido=self.primer_apellido,
             segundo_apellido=self.segundo_apellido
