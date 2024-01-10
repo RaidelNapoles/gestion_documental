@@ -1,4 +1,3 @@
-from typing import List
 from django.contrib import admin
 from .models import Autor, Publicacion, Edicion, Articulo, PalabraClave, Seccion
 
@@ -29,6 +28,6 @@ admin.site.register(Publicacion)
 admin.site.register(Edicion)
 admin.site.register(Seccion)
 admin.site.register(Articulo, ArticuloAdmin)
-admin.site.register(PalabraClave, PalabraClaveAdmin)
+admin.site.register(PalabraClave)
 
 admin.site.site_header = "Administración del sitio"
