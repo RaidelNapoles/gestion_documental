@@ -2,3 +2,4 @@ __pycache__/
 media/
 gestion_documental/.env
 django_env/
+

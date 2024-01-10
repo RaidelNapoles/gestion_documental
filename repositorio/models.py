@@ -90,7 +90,7 @@ class Articulo(models.Model):
     )
     pagina = models.PositiveIntegerField()
     palabras_claves = models.ManyToManyField(PalabraClave)
-    resumen = models.CharField(max_length=400, blank=True, default='')
+    resumen = models.TextField(max_length=400, blank=True, default='')
     texto = HTMLField()
 
     class Meta:
