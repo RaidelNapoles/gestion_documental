@@ -29,6 +29,6 @@ admin.site.register(Publicacion)
 admin.site.register(Edicion)
 admin.site.register(Seccion)
 admin.site.register(Articulo, ArticuloAdmin)
-# admin.site.register(PalabraClave, PalabraClaveAdmin)
+admin.site.register(PalabraClave, PalabraClaveAdmin)
 
 admin.site.site_header = "Administración del sitio"
