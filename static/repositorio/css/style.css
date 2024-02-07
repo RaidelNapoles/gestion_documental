@@ -30,6 +30,12 @@ a {
 	font-weight: bolder;
 }
 
+.summary {
+	width: 70%;
+	font-size: 1.5vmax;
+	font-weight: bolder;
+}
+
 .article {
 	/* background-color: rgba(16, 104, 168, 0.05);
 	border: none; */

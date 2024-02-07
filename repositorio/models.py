@@ -8,8 +8,8 @@ from tinymce.models import HTMLField
 
 class Autor(models.Model):
     nombre = models.CharField(max_length=100)
-    primer_apellido = models.CharField(max_length=100)
-    segundo_apellido = models.CharField(max_length=100, default='', blank=True)
+    primer_apellido = models.CharField(max_length=100, null=True, blank=True)
+    segundo_apellido = models.CharField(max_length=100, null=True, blank=True)
     picture = models.ImageField(
         upload_to='author_pictures/', null=True, blank=True)
     biography = models.TextField(default='', blank=True)
@@ -19,11 +19,19 @@ class Autor(models.Model):
         ordering = ['primer_apellido']
 
     def __str__(self) -> str:
-        return "{primer_apellido} {segundo_apellido}, {nombre}".format(
-            nombre=self.nombre,
-            primer_apellido=self.primer_apellido,
-            segundo_apellido=self.segundo_apellido
-        )
+        if self.nombre and self.primer_apellido and self.segundo_apellido:
+            return "{primer_apellido} {segundo_apellido}, {nombre}".format(
+                nombre=self.nombre,
+                primer_apellido=self.primer_apellido,
+                segundo_apellido=self.segundo_apellido
+            )
+        elif self.nombre and self.primer_apellido:
+            return "{primer_apellido}, {nombre}".format(
+                nombre=self.nombre,
+                primer_apellido=self.primer_apellido
+            )
+        else:
+            return self.nombre  # caso especial para las instituciones
 
 
 class Publicacion(models.Model):

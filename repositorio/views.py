@@ -132,16 +132,19 @@ def search_result(request, page_number=1):
 
         if autor:
             tester = autor.split(' ')
-            nombre = autor.split(' ')[0]
-            apellido1 = autor.split(' ')[1]
-            apellido2 = autor.split(' ')[2]
+
+            apellidos = autor.split(', ')[0]
+            apellido1 = apellidos.split(' ')[0]
+            apellido2 = apellidos.split(' ')[1]
+            nombre = autor.split(', ')[1]
+
             articles = articles.filter(
                 # autores__nombre=nombre,
                 # autores__primer_apellido=apellido1,
-                autores__segundo_apellido=apellido2
-                # Q(autores__nombre=nombre),
-                # Q(autores__primer_apellido=apellido1),
-                # Q(autores__segundo_apellido=apellido2),
+                # autores__segundo_apellido=apellido2
+                Q(autores__nombre=nombre),
+                Q(autores__primer_apellido=apellido1),
+                Q(autores__segundo_apellido=apellido2),
             )
             # print(str(articles.query))
 
