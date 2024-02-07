@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, home, articulo, articulo_impreso, autor, texto, exportar_articulo_a_txt, search, search_result, administracion, listar_articulos, ArticuloCreateView, ArticuloUpdateView, ArticuloDeleteView
+from .views import PalabraClaveCreateView, PalabraClaveDeleteView, PalabraClaveUpdateView, index, home, articulo, articulo_impreso, autor, texto, exportar_articulo_a_txt, search, search_result, administracion, listar_articulos, ArticuloCreateView, ArticuloUpdateView, ArticuloDeleteView
 
 urlpatterns = [
     path('', index, name='index'),
@@ -16,6 +16,7 @@ urlpatterns = [
          search_result, name='search_result'),
 
     path('administracion/', administracion, name='administracion'),
+    
     path(
         'administracion/articulo/listar/',
         listar_articulos,
@@ -27,5 +28,12 @@ urlpatterns = [
          ArticuloUpdateView.as_view(), name='articulos_actualizar'),
     path('administracion/articulo/<int:pk>/eliminar/',
          ArticuloDeleteView.as_view(), name='articulos_eliminar'),
+    
+    path('administracion/palabraclave/crear/',
+         PalabraClaveCreateView.as_view(), name='palabrasclaves_crear'),
+    path('administracion/palabraclave/<int:pk>/actualizar/',
+         PalabraClaveUpdateView.as_view(), name='palabrasclaves_actualizar'),
+    path('administracion/palabraclave/<int:pk>/eliminar/',
+         PalabraClaveDeleteView.as_view(), name='palabrasclaves_eliminar'),
 
 ]

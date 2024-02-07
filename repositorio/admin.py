@@ -1,13 +1,22 @@
 from django.contrib import admin
-from .models import Autor, Publicacion, Edicion, Articulo, Texto, PalabraClave, ArticlePicture, Seccion
+from .models import Autor, Publicacion, Edicion, Articulo, PalabraClave, Seccion
 
 # Register your models here.
 
 
+class PalabraClaveAdmin(admin.TabularInline):
+    autocomplete_fields = ['question']
+
+
 class ArticuloAdmin(admin.ModelAdmin):
-    search_fields = ['titulo', 'autores__nombre', 'autores__primer_apellido',
-                     'autores__segundo_apellido', 'texto', 'edicion__publicacion__nombre']
-    list_display = ['titulo', 'edicion', 'pagina']
+    search_fields = [
+        'titulo', 'autores__nombre', 'autores__primer_apellido',
+        'autores__segundo_apellido', 'texto', 'edicion__publicacion__nombre'
+    ]
+    list_display = [
+        'titulo', 'edicion', 'pagina'
+    ]
+    # autocomplete_fields = ['palabras_claves']
 
 
 class AutorAdmin(admin.ModelAdmin):
@@ -19,8 +28,6 @@ admin.site.register(Publicacion)
 admin.site.register(Edicion)
 admin.site.register(Seccion)
 admin.site.register(Articulo, ArticuloAdmin)
-# admin.site.register(Texto)
 admin.site.register(PalabraClave)
-# admin.site.register(ArticlePicture)
 
 admin.site.site_header = "Administración del sitio"
