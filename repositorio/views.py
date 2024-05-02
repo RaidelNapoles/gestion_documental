@@ -58,7 +58,7 @@ def articulo_impreso(request, id):
     path = settings.MEDIA_URL + articulo.edicion.edicion_impresa.name
     context = {
         'ruta_edicion_impresa': path,
-        'pagina': articulo.pagina
+        'pagina': articulo.pagina_inicio
     }
     return render(request, 'repositorio/articulo_impreso.html', context)
 

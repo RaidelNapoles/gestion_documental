@@ -17,7 +17,7 @@ class ArticuloAdmin(admin.ModelAdmin):
         'autores__segundo_apellido', 'texto', 'edicion__publicacion__nombre'
     ]
     list_display = [
-        'titulo', 'edicion', 'pagina'
+        'titulo', 'edicion', 'pagina_inicio'
     ]
     # autocomplete_fields = ['palabras_claves']
 

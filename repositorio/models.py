@@ -96,7 +96,8 @@ class Articulo(models.Model):
         Seccion, on_delete=models.SET_DEFAULT, null=True, blank=True,
         default=""
     )
-    pagina = models.PositiveIntegerField()
+    pagina_inicio = models.PositiveIntegerField()
+    pagina_fin = models.PositiveIntegerField(null=True, blank=True)
     palabras_claves = models.ManyToManyField(PalabraClave)
     resumen = models.TextField(max_length=400, blank=True, default='')
     texto = HTMLField()
