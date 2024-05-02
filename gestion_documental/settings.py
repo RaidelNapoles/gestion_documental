@@ -179,6 +179,35 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
     'height': 500,
+    'file_browser': True,
+    'image_upload_url': '/upload_article_image/', # This should point to your Django view handling the image upload
+    'image_upload_credentials': True,
+    'file_picker_callback': '''function (cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file");
+        if (meta.filetype == "image") {
+            input.setAttribute("accept", "image/*");
+        }
+        if (meta.filetype == "media") {
+            input.setAttribute("accept", "video/*");
+        }
+
+        input.onchange = function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                var id = "blobid" + (new Date()).getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), { title: file.name });
+            };
+            reader.readAsDataURL(file);
+        };
+        input.click();
+    }'''
+    
     # 'paste_preprocess': "function(pl,o){o.content = o.content.replace(/(<([^>]+)>)/ig,' '); o.content = o.content.replace(/(- )/ig,'');}",
 }
 

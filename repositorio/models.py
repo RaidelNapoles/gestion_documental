@@ -116,13 +116,15 @@ class Articulo(models.Model):
         self.edicion.fecha_publicacion
 
 
-class ArticlePicture(models.Model):
-    name = models.CharField(max_length=100)
-    picture = models.ImageField(
-        upload_to='article_pictures/', null=True, blank=True)
+class Imagen(models.Model):
+    nombre = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to='pictures/', null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Imágenes'
 
     def __str__(self) -> str:
-        return self.name
+        return self.nombre
 
 
 class Texto(models.Model):

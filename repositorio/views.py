@@ -1,5 +1,6 @@
 from datetime import datetime
-from django.http import HttpResponse
+import os
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import Articulo, Autor, Publicacion, Edicion, PalabraClave, Texto
@@ -10,6 +11,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from bs4 import BeautifulSoup
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 page_size = 4
@@ -303,3 +305,15 @@ class ArticuloDeleteView(DeleteView):
 
     def get_success_url(self) -> str:
         return reverse_lazy('articulos_listar')
+
+
+@csrf_exempt
+def upload_article_image(request):
+    if request.method == 'POST':
+        image = request.FILES['file']
+        filename = f"pictures/{image.name}"
+        with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+') as destination:
+            for chunk in image.chunks():
+                destination.write(chunk)
+        return JsonResponse({'location': request.build_absolute_uri(filename)})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
